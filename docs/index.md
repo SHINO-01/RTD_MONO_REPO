@@ -1,3 +1,3 @@
 # Unified Project Documentation
 ## Table of Contents
-- **[Shino-01 - RTD_CHILD_01](docs/projects/SHINO-01/RTD_CHILD_01/docs/index.md)**
+- **[Rtd Child 01 - latest](docs/projects/RTD_CHILD_01/latest/docs/index.md)**
