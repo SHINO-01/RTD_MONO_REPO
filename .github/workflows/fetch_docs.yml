@@ -1,0 +1,42 @@
+name: Fetch Documentation Updates
+
+on:
+  repository_dispatch:
+    types: [docs_updated]
+
+jobs:
+  fetch-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Run fetch_remote.sh
+        run: |
+          chmod +x automation/fetch_remote.sh
+          ./automation/fetch_remote.sh
+
+      - name: Run cleanup_versions.sh
+        run: |
+          chmod +x automation/cleanup_versions.sh
+          ./automation/cleanup_versions.sh
+
+      - name: Run generate_TOC.py
+        run: |
+          chmod +x automation/generate_TOC.py
+          ./automation/generate_TOC.py
+
+      - name: Commit and push updates
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "Automated Docs Update via Webhook"
+            git push
+          else
+            echo "No changes to commit."
+          fi
