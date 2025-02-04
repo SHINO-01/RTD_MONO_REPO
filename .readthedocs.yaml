@@ -6,6 +6,7 @@ build:
     python: "3.13"
   jobs:
     pre_build:
+      - python3 automation/fetch_remote.py
       - python3 automation/generate_TOC.py
 
 mkdocs:
