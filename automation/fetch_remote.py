@@ -7,7 +7,7 @@ import sys
 PROJECTS_DIR = "docs/projects"
 GH_TOKEN = os.getenv("GH_PAT_TOKEN")
 
-def fetch_docs(repo_name, repo_owner="SHINO-01"):
+def fetch_docs(repo_name):
     """
     Recursively fetches all documentation files from a given GitHub repository.
     """
@@ -15,6 +15,10 @@ def fetch_docs(repo_name, repo_owner="SHINO-01"):
         print("❌ Error: GitHub token is missing. Set GH_PAT_TOKEN as an environment variable.")
         sys.exit(1)
 
+    # Ensure repo_name does NOT contain the org name twice
+    repo_owner = "SHINO-01"
+    repo_name = repo_name.split("/")[-1]  # Extract only "RTD_CHILD_01"
+    
     # Get default branch dynamically
     headers = {"Authorization": f"token {GH_TOKEN}", "Accept": "application/vnd.github.v3+json"}
     default_branch_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}"
