@@ -14,20 +14,27 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run fetch_remote.sh
-        run: |
-          chmod +x automation/fetch_remote.sh
-          ./automation/fetch_remote.sh
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.x"
 
-      - name: Run cleanup_versions.sh
+      - name: Install dependencies
         run: |
-          chmod +x automation/cleanup_versions.sh
-          ./automation/cleanup_versions.sh
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run fetch_docs.py
+        run: |
+          python automation/fetch_remote.py
+
+      - name: Run cleanup_versions.py
+        run: |
+          python automation/cleanup_version.py
 
       - name: Run generate_TOC.py
         run: |
-          chmod +x automation/generate_TOC.py
-          ./automation/generate_TOC.py
+          python automation/generate_TOC.py
 
       - name: Commit and push updates
         run: |
