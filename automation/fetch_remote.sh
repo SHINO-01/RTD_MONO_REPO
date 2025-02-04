@@ -12,7 +12,7 @@ while IFS= read -r line; do
 
   echo "Fetching docs for $project from $repo_url"
 
-  TARGET_DIR="$DEST_DIR/$project/versions/latest"
+  TARGET_DIR="$DEST_DIR/$project/tree/main"
   mkdir -p "$TARGET_DIR"
 
   git archive --remote="$repo_url" HEAD docs | tar -x -C "$TARGET_DIR"
