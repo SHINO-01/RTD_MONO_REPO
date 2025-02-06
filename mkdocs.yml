@@ -40,14 +40,3 @@ markdown_extensions:
   - toc:
       permalink: true
 
-nav:
-  - Rtd Child 01:
-    - latest: docs/projects/RTD_CHILD_01/latest/docs/index.md
-
-nav:
-  - Rtd Child 01:
-    - v1.0.6: docs/projects/RTD_CHILD_01/v1.0.6/docs/index.md
-    - v1.0.5: docs/projects/RTD_CHILD_01/v1.0.5/docs/index.md
-    - v1.0.4: docs/projects/RTD_CHILD_01/v1.0.4/docs/index.md
-    - v1.0.3: docs/projects/RTD_CHILD_01/v1.0.3/docs/index.md
-    - v1.0.2: docs/projects/RTD_CHILD_01/v1.0.2/docs/index.md
