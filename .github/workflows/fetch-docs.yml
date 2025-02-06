@@ -26,9 +26,10 @@ jobs:
 
       - name: Fetch documentation from triggering repo
         env:
-          GH_PAT_TOKEN: ${{ secrets.GH_PAT_TOKEN }}  # Ensure the token is passed correctly
-          REPO_NAME: ${{ github.event.client_payload.repository }}
+          GH_PAT_TOKEN: ${{ secrets.GH_PAT_TOKEN }}  # Ensure the secret is correctly passed
+          REPO_NAME: ${{ github.event.client_payload.repository }}  # Repository name from webhook
         run: |
+          echo "Fetching documentation from repo: $REPO_NAME"
           python automation/fetch_remote.py "$REPO_NAME"
 
       - name: Run cleanup_versions.py
@@ -48,4 +49,3 @@ jobs:
           else
             echo "No changes to commit."
           fi
-
