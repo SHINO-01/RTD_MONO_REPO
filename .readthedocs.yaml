@@ -7,7 +7,7 @@ build:
 
   # Add environment variables
   environment:
-    GH_PAT_TOKEN: $GITHUB_PAT_TOKEN  # This will be set in the Read the Docs project settings
+    GH_PAT_TOKEN: $GH_PAT_TOKEN  # This will be set in the Read the Docs project settings
 
   jobs:
     pre_build:
