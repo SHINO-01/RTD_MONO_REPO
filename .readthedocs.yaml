@@ -4,11 +4,18 @@ build:
   os: ubuntu-24.04
   tools:
     python: "3.10"
+
+  # Add environment variables
+  environment:
+    GH_PAT_TOKEN: $GITHUB_PAT_TOKEN  # This will be set in the Read the Docs project settings
+
   jobs:
     pre_build:
+      - python -m pip install --upgrade pip
+      - pip install requests pyyaml
       - python automation/fetch_remote.py "$REPO_NAME"
-      - python automation/generate_TOC.py
-      - python automation/generate_NAV.py  # Add the call to your nav generation script
+      - python automation/cleanup_version.py
+      - python automation/generate_nav.py
 
 mkdocs:
   configuration: mkdocs.yml

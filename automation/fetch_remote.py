@@ -5,7 +5,7 @@ import sys
 
 # Constants
 PROJECTS_DIR = "docs/projects"
-GH_TOKEN = os.getenv("GH_PAT_TOKEN")
+GH_TOKEN = os.getenv("GITHUB_PAT_TOKEN")  # Updated to match Read the Docs environment variable
 MAX_VERSIONS = 5  # Max number of versions to keep
 
 def fetch_docs(repo_name):
@@ -13,7 +13,7 @@ def fetch_docs(repo_name):
     Fetches all documentation files from a given GitHub repository for multiple branches.
     """
     if not GH_TOKEN:
-        print("❌ Error: GitHub token is missing. Set GH_PAT_TOKEN as an environment variable.")
+        print("❌ Error: GitHub token is missing. Set GITHUB_PAT_TOKEN as an environment variable.")
         sys.exit(1)
 
     # Ensure repo_name does NOT contain the org name twice
