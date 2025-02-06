@@ -1,35 +1,26 @@
-site_name: "Unified Project Documentation"
-site_description: "Centralized documentation for multiple projects"
+site_name: "RTD Mono Repo"
+site_url: "https://rtd-mono-repo.readthedocs.io"
+
+docs_dir: docs
+
 theme:
   name: material
-  palette:
-    primary: indigo
-    accent: blue
-  font:
-    text: Roboto
-    code: Roboto Mono
-  language: en
-
-extra:
-  favicon: assets/img/favicon.ico
-
-repo_url: "https://github.com/SHINO-01/RTD_MONO_REPO"
-
-plugins:
-  - awesome-pages  # Automatically organizes navigation based on folder structure
-  - search
-  - gen-files:
-      scripts:
-        - automation/generate_TOC.py
-
-markdown_extensions:
-  - toc:
-      permalink: true
-  - pymdownx.extra
-  - pymdownx.superfences
-  - pymdownx.tabbed
-  - pymdownx.highlight
-  - pymdownx.inlinehilite
+  features:
+    - navigation.tabs
+    - navigation.expand
+    - navigation.indexes
+    - toc.integrate  # Integrate TOC into the sidebar
 
 nav:
-  - Home: docs/index.md
+  - Home: index.md
+  - Projects:
+      - projects/index.md  # Top-level index
+      - !include "docs/projects"  # Auto-includes all nested content
+
+plugins:
+  - search
+  - awesome-pages  # Auto-generate navigation dynamically
+  - mkdocstrings  # Automatically generate API docs if needed
+  - mkdocs-gen-files  # Helps in generating dynamic content
+  - mkdocs-literate-nav:
+      nav_file: SUMMARY.md  # Alternative way to control auto-generated TOC
