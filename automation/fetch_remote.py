@@ -5,7 +5,7 @@ import sys
 
 # Constants
 PROJECTS_DIR = "docs/projects"
-GH_TOKEN = os.getenv("GITHUB_PAT_TOKEN")  # Updated to match Read the Docs environment variable
+GH_TOKEN = os.getenv("GH_PAT_TOKEN")  # Updated to match Read the Docs environment variable
 MAX_VERSIONS = 5  # Max number of versions to keep
 
 def fetch_docs(repo_name):
