@@ -13,7 +13,6 @@ theme:
   - content.action.edit
 plugins:
 - search
-- mkdocs-gen-files
 - mkdocs-section-index
 markdown_extensions:
 - admonition
