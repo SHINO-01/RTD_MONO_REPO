@@ -21,6 +21,7 @@ plugins:
   - search
   - awesome-pages  # Auto-generate navigation dynamically
   - mkdocstrings  # Automatically generate API docs if needed
-  - mkdocs-gen-files  # Helps in generating dynamic content
+  - mkdocs-gen-files
+  - include-markdown  # Helps in generating dynamic content
   - mkdocs-literate-nav:
       nav_file: SUMMARY.md  # Alternative way to control auto-generated TOC
