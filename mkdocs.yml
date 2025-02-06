@@ -15,13 +15,13 @@ nav:
   - Home: index.md
   - Projects:
       - projects/index.md  # Top-level index
-      - !include "docs/projects"  # Auto-includes all nested content
+      # - !include "docs/projects"  # Auto-includes all nested content
 
 plugins:
   - search
   - awesome-pages  # Auto-generate navigation dynamically
   - mkdocstrings  # Automatically generate API docs if needed
   - mkdocs-gen-files
-  - include-markdown  # Helps in generating dynamic content
+  # - include-markdown  # Helps in generating dynamic content
   - mkdocs-literate-nav:
       nav_file: SUMMARY.md  # Alternative way to control auto-generated TOC
