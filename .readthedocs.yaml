@@ -3,13 +3,11 @@ version: 2
 build:
   os: ubuntu-24.04
   tools:
-    python: "3.13"
+    python: "3.10"
   jobs:
     pre_build:
-      - python -m pip install --upgrade pip
-      - pip install -r requirements.txt  # ✅ Explicitly install all dependencies
-      - python3 automation/fetch_remote.py  # (If needed)
-      - python3 automation/generate_TOC.py  # ✅ Run TOC generator
+      - python automation/fetch_remote.py "$REPO_NAME"
+      - python automation/generate_TOC.py
 
 mkdocs:
   configuration: mkdocs.yml

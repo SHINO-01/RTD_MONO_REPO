@@ -1,27 +1,41 @@
-site_name: "RTD Mono Repo"
-site_url: "https://rtd-mono-repo.readthedocs.io"
-
-docs_dir: docs
-
+site_name: "Unified Project Documentation"
+repo_url: "https://github.com/SHINO-01/RTD_MONO_REPO"
+edit_uri: "edit/main/docs/"
 theme:
-  name: material
+  name: "material"
   features:
     - navigation.tabs
-    - navigation.expand
-    - navigation.indexes
-    - toc.integrate  # Integrate TOC into the sidebar
+    - navigation.sections
+    - navigation.instant
+    - toc.integrate
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
+
+plugins:
+  - search
+  - mkdocs-gen-files
+  - mkdocs-section-index
+  - mkdocs-literate-nav
+  - autorefs
+  - include-markdown
+  - glightbox
 
 nav:
   - Home: index.md
   - Projects:
-      - projects/index.md  # Top-level index
-      # - !include "docs/projects"  # Auto-includes all nested content
+      - Overview: docs/projects/index.md
+      - !include "docs/projects/nav.yml"  # Auto-generated TOC
 
-plugins:
-  - search
-  - awesome-pages  # Auto-generate navigation dynamically
-  - mkdocstrings  # Automatically generate API docs if needed
-  - mkdocs-gen-files
-  # - include-markdown  # Helps in generating dynamic content
-  - mkdocs-literate-nav:
-      nav_file: SUMMARY.md  # Alternative way to control auto-generated TOC
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.emoji
+  - pymdownx.snippets
+  - pymdownx.keys
+  - pymdownx.extra
+  - toc:
+      permalink: true
