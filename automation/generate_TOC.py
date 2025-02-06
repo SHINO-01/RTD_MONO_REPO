@@ -1,32 +1,27 @@
 import os
 
 DOCS_DIR = "docs/projects"
-INDEX_FILE = "docs/index.md"
+NAV_FILE = "mkdocs.yml"
 
-def generate_toc():
-    toc = ["# Unified Project Documentation\n", "## Table of Contents\n"]
-
-    projects = sorted(
-        [d for d in os.listdir(DOCS_DIR) if os.path.isdir(os.path.join(DOCS_DIR, d))]
-    )
+def generate_nav():
+    nav = ["nav:"]
+    
+    projects = sorted([d for d in os.listdir(DOCS_DIR) if os.path.isdir(os.path.join(DOCS_DIR, d))])
 
     for project in projects:
-        project_path = os.path.join(DOCS_DIR, project)
+        project_entry = f"  - {project.replace('_', ' ').title()}:"
         versions = sorted(
-            [v for v in os.listdir(project_path) if os.path.isdir(os.path.join(project_path, v))],
-            reverse=True  # Newest version first
+            [v for v in os.listdir(os.path.join(DOCS_DIR, project)) if os.path.isdir(os.path.join(DOCS_DIR, project, v))],
+            reverse=True
         )
 
-        if versions:
-            toc.append(f"- **{project.replace('_', ' ').title()}**\n")
+        version_entries = [f"    - {version}: {DOCS_DIR}/{project}/{version}/docs/index.md" for version in versions]
+        project_entry += "\n" + "\n".join(version_entries)
+        
+        nav.append(project_entry)
 
-            for version in versions:
-                version_docs_path = f"{DOCS_DIR}/{project}/{version}/docs/index.md"
-                toc.append(f"  - [{version}]({version_docs_path})\n")
-
-    # Write the Table of Contents to the main index file
-    with open(INDEX_FILE, "w", encoding="utf-8") as f:
-        f.writelines(toc)
+    with open(NAV_FILE, "a", encoding="utf-8") as f:  # Append to mkdocs.yml
+        f.write("\n" + "\n".join(nav) + "\n")
 
 if __name__ == "__main__":
-    generate_toc()
+    generate_nav()
