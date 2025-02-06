@@ -24,9 +24,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run fetch_docs.py
+      - name: Run automation/fetch_remote.py
         run: |
-          python automation/fetch_docs.py
+          python automation/fetch_remote.py
 
       - name: Run cleanup_versions.py
         run: |
