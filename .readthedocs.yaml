@@ -4,18 +4,19 @@ build:
   os: ubuntu-24.04
   tools:
     python: "3.10"
-
-  # Environment variables
-  environment:
-    GH_PAT_TOKEN: $GITHUB_PAT_TOKEN  # Matches Read the Docs environment variable
-
+  # If building on RTD you may want to run only the navigation generator.
+  # If you wish to also fetch docs here, ensure REPO_NAME is set appropriately.
   jobs:
     pre_build:
       - python -m pip install --upgrade pip
-      - pip install -r requirements.txt
-      - python automation/fetch_remote.py "$REPO_NAME"
+      - pip install requests pyyaml
+      - python automation/fetch_remote.py "$REPO_NAME" || echo "Skipping fetch_remote (REPO_NAME not set)"
       - python automation/cleanup_version.py
       - python automation/generate_NAV.py
 
 mkdocs:
   configuration: mkdocs.yml
+
+python:
+  install:
+    - requirements: requirements.txt
