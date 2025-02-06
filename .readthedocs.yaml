@@ -8,7 +8,7 @@ build:
     pre_build:
       - python automation/fetch_remote.py "$REPO_NAME"
       - python automation/generate_TOC.py
-      - python automation/generate_nav.py  # Add the call to your nav generation script
+      - python automation/generate_NAV.py  # Add the call to your nav generation script
 
 mkdocs:
   configuration: mkdocs.yml
