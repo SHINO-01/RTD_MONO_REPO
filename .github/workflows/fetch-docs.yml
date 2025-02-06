@@ -24,19 +24,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Fetch documentation from triggering repo
-        env:
-          GH_PAT_TOKEN: ${{ secrets.GH_PAT_TOKEN }}  # Ensure the secret is correctly passed
-          REPO_NAME: ${{ github.event.client_payload.repository }}  # Repository name from webhook
+      - name: Run fetch_docs.py
         run: |
-          echo "Fetching documentation from repo: $REPO_NAME"
-          python automation/fetch_remote.py "$REPO_NAME"
+          python automation/fetch_docs.py
 
       - name: Run cleanup_versions.py
-        run: python automation/cleanup_version.py
+        run: |
+          python automation/cleanup_versions.py
 
       - name: Run generate_TOC.py
-        run: python automation/generate_TOC.py
+        run: |
+          python automation/generate_TOC.py
 
       - name: Commit and push updates
         run: |
@@ -44,7 +42,7 @@ jobs:
           git config user.email "actions@github.com"
           git add .
           if ! git diff-index --quiet HEAD; then
-            git commit -m "Automated Docs Update for $REPO_NAME"
+            git commit -m "Automated Docs Update via Webhook"
             git push
           else
             echo "No changes to commit."
