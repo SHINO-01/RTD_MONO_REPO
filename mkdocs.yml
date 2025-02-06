@@ -1,159 +1,42 @@
-site_name: Unified Project Documentation
-repo_url: https://github.com/SHINO-01/RTD_MONO_REPO
-edit_uri: edit/main/docs/
+site_name: "Unified Project Documentation"
+repo_url: "https://github.com/SHINO-01/RTD_MONO_REPO"
+edit_uri: "edit/main/docs/"
 theme:
-  name: material
+  name: "material"
   features:
-  - navigation.tabs
-  - navigation.sections
-  - navigation.instant
-  - toc.integrate
-  - search.highlight
-  - content.code.copy
-  - content.action.edit
+    - navigation.tabs
+    - navigation.sections
+    - navigation.instant
+    - toc.integrate
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
+
 plugins:
-- search
-- mkdocs-gen-files
-- mkdocs-section-index
-markdown_extensions:
-- admonition
-- pymdownx.details
-- pymdownx.superfences
-- pymdownx.highlight
-- toc:
-    permalink: true
+  - search
+  - mkdocs-gen-files
+  - mkdocs-section-index
+  - mkdocs-literate-nav
+  - autorefs
+  - include-markdown
+  - glightbox
+
 nav:
-- Home: index.md
-- Projects:
-  - Rtd Child 01:
-    - v1.0.8:
-      - Index: projects/RTD_CHILD_01/v1.0.8/docs/index.md
-      - Test-Dir-01:
-        - Test001: projects/RTD_CHILD_01/v1.0.8/docs/test-dir-01/test001.md
-        - Test01: projects/RTD_CHILD_01/v1.0.8/docs/test-dir-01/test01.md
-      - Test-Dir-02:
-        - Test002: projects/RTD_CHILD_01/v1.0.8/docs/test-dir-02/test002.md
-        - Test02: projects/RTD_CHILD_01/v1.0.8/docs/test-dir-02/test02.md
-      - Test-Dir-03:
-        - Test03: projects/RTD_CHILD_01/v1.0.8/docs/test-dir-03/test03.md
-        - Testdir003: projects/RTD_CHILD_01/v1.0.8/docs/test-dir-03/testdir003.md
-      - Test-Dir-04:
-        - Test05: projects/RTD_CHILD_01/v1.0.8/docs/test-dir-04/test05.md
-        - Test06: projects/RTD_CHILD_01/v1.0.8/docs/test-dir-04/test06.md
-        - Test07: projects/RTD_CHILD_01/v1.0.8/docs/test-dir-04/test07.md
-    - v1.0.7:
-      - Index: projects/RTD_CHILD_01/v1.0.7/docs/index.md
-      - Test-Dir-01:
-        - Test001: projects/RTD_CHILD_01/v1.0.7/docs/test-dir-01/test001.md
-        - Test01: projects/RTD_CHILD_01/v1.0.7/docs/test-dir-01/test01.md
-      - Test-Dir-02:
-        - Test002: projects/RTD_CHILD_01/v1.0.7/docs/test-dir-02/test002.md
-        - Test02: projects/RTD_CHILD_01/v1.0.7/docs/test-dir-02/test02.md
-      - Test-Dir-03:
-        - Test03: projects/RTD_CHILD_01/v1.0.7/docs/test-dir-03/test03.md
-        - Testdir003: projects/RTD_CHILD_01/v1.0.7/docs/test-dir-03/testdir003.md
-      - Test-Dir-04:
-        - Test05: projects/RTD_CHILD_01/v1.0.7/docs/test-dir-04/test05.md
-        - Test06: projects/RTD_CHILD_01/v1.0.7/docs/test-dir-04/test06.md
-        - Test07: projects/RTD_CHILD_01/v1.0.7/docs/test-dir-04/test07.md
-    - v1.0.6:
-      - Index: projects/RTD_CHILD_01/v1.0.6/docs/index.md
-      - Test-Dir-01:
-        - Test001: projects/RTD_CHILD_01/v1.0.6/docs/test-dir-01/test001.md
-        - Test01: projects/RTD_CHILD_01/v1.0.6/docs/test-dir-01/test01.md
-      - Test-Dir-02:
-        - Test002: projects/RTD_CHILD_01/v1.0.6/docs/test-dir-02/test002.md
-        - Test02: projects/RTD_CHILD_01/v1.0.6/docs/test-dir-02/test02.md
-      - Test-Dir-03:
-        - Test03: projects/RTD_CHILD_01/v1.0.6/docs/test-dir-03/test03.md
-        - Testdir003: projects/RTD_CHILD_01/v1.0.6/docs/test-dir-03/testdir003.md
-      - Test-Dir-04:
-        - Test05: projects/RTD_CHILD_01/v1.0.6/docs/test-dir-04/test05.md
-        - Test06: projects/RTD_CHILD_01/v1.0.6/docs/test-dir-04/test06.md
-        - Test07: projects/RTD_CHILD_01/v1.0.6/docs/test-dir-04/test07.md
-    - v1.0.5:
-      - Index: projects/RTD_CHILD_01/v1.0.5/docs/index.md
-      - Test-Dir-01:
-        - Test001: projects/RTD_CHILD_01/v1.0.5/docs/test-dir-01/test001.md
-        - Test01: projects/RTD_CHILD_01/v1.0.5/docs/test-dir-01/test01.md
-      - Test-Dir-02:
-        - Test002: projects/RTD_CHILD_01/v1.0.5/docs/test-dir-02/test002.md
-        - Test02: projects/RTD_CHILD_01/v1.0.5/docs/test-dir-02/test02.md
-      - Test-Dir-03:
-        - Test03: projects/RTD_CHILD_01/v1.0.5/docs/test-dir-03/test03.md
-        - Testdir003: projects/RTD_CHILD_01/v1.0.5/docs/test-dir-03/testdir003.md
-      - Test-Dir-04:
-        - Test05: projects/RTD_CHILD_01/v1.0.5/docs/test-dir-04/test05.md
-        - Test06: projects/RTD_CHILD_01/v1.0.5/docs/test-dir-04/test06.md
-        - Test07: projects/RTD_CHILD_01/v1.0.5/docs/test-dir-04/test07.md
-    - v1.0.4:
-      - Index: projects/RTD_CHILD_01/v1.0.4/docs/index.md
-      - Test-Dir-01:
-        - Test001: projects/RTD_CHILD_01/v1.0.4/docs/test-dir-01/test001.md
-        - Test01: projects/RTD_CHILD_01/v1.0.4/docs/test-dir-01/test01.md
-      - Test-Dir-02:
-        - Test002: projects/RTD_CHILD_01/v1.0.4/docs/test-dir-02/test002.md
-        - Test02: projects/RTD_CHILD_01/v1.0.4/docs/test-dir-02/test02.md
-      - Test-Dir-03:
-        - Test03: projects/RTD_CHILD_01/v1.0.4/docs/test-dir-03/test03.md
-        - Testdir003: projects/RTD_CHILD_01/v1.0.4/docs/test-dir-03/testdir003.md
-      - Test-Dir-04:
-        - Test05: projects/RTD_CHILD_01/v1.0.4/docs/test-dir-04/test05.md
-        - Test06: projects/RTD_CHILD_01/v1.0.4/docs/test-dir-04/test06.md
-        - Test07: projects/RTD_CHILD_01/v1.0.4/docs/test-dir-04/test07.md
-  - Rtd Child 02:
-    - v0.0.9:
-      - Index: projects/RTD_CHILD_02/v0.0.9/docs/index.md
-      - Test-Dir-01:
-        - Test01: projects/RTD_CHILD_02/v0.0.9/docs/test-dir-01/test01.md
-      - Test-Dir-02:
-        - Test02: projects/RTD_CHILD_02/v0.0.9/docs/test-dir-02/test02.md
-      - Test-Dir-03:
-        - Test03: projects/RTD_CHILD_02/v0.0.9/docs/test-dir-03/test03.md
-      - Test-Dir-04:
-        - Test05: projects/RTD_CHILD_02/v0.0.9/docs/test-dir-04/test05.md
-        - Test06: projects/RTD_CHILD_02/v0.0.9/docs/test-dir-04/test06.md
-    - v0.0.8:
-      - Index: projects/RTD_CHILD_02/v0.0.8/docs/index.md
-      - Test-Dir-01:
-        - Test01: projects/RTD_CHILD_02/v0.0.8/docs/test-dir-01/test01.md
-      - Test-Dir-02:
-        - Test02: projects/RTD_CHILD_02/v0.0.8/docs/test-dir-02/test02.md
-      - Test-Dir-03:
-        - Test03: projects/RTD_CHILD_02/v0.0.8/docs/test-dir-03/test03.md
-      - Test-Dir-04:
-        - Test05: projects/RTD_CHILD_02/v0.0.8/docs/test-dir-04/test05.md
-        - Test06: projects/RTD_CHILD_02/v0.0.8/docs/test-dir-04/test06.md
-    - v0.0.7:
-      - Index: projects/RTD_CHILD_02/v0.0.7/docs/index.md
-      - Test-Dir-01:
-        - Test01: projects/RTD_CHILD_02/v0.0.7/docs/test-dir-01/test01.md
-      - Test-Dir-02:
-        - Test02: projects/RTD_CHILD_02/v0.0.7/docs/test-dir-02/test02.md
-      - Test-Dir-03:
-        - Test03: projects/RTD_CHILD_02/v0.0.7/docs/test-dir-03/test03.md
-      - Test-Dir-04:
-        - Test05: projects/RTD_CHILD_02/v0.0.7/docs/test-dir-04/test05.md
-        - Test06: projects/RTD_CHILD_02/v0.0.7/docs/test-dir-04/test06.md
-    - v0.0.6:
-      - Index: projects/RTD_CHILD_02/v0.0.6/docs/index.md
-      - Test-Dir-01:
-        - Test01: projects/RTD_CHILD_02/v0.0.6/docs/test-dir-01/test01.md
-      - Test-Dir-02:
-        - Test02: projects/RTD_CHILD_02/v0.0.6/docs/test-dir-02/test02.md
-      - Test-Dir-03:
-        - Test03: projects/RTD_CHILD_02/v0.0.6/docs/test-dir-03/test03.md
-      - Test-Dir-04:
-        - Test05: projects/RTD_CHILD_02/v0.0.6/docs/test-dir-04/test05.md
-        - Test06: projects/RTD_CHILD_02/v0.0.6/docs/test-dir-04/test06.md
-    - v0.0.5:
-      - Index: projects/RTD_CHILD_02/v0.0.5/docs/index.md
-      - Test-Dir-01:
-        - Test01: projects/RTD_CHILD_02/v0.0.5/docs/test-dir-01/test01.md
-      - Test-Dir-02:
-        - Test02: projects/RTD_CHILD_02/v0.0.5/docs/test-dir-02/test02.md
-      - Test-Dir-03:
-        - Test03: projects/RTD_CHILD_02/v0.0.5/docs/test-dir-03/test03.md
-      - Test-Dir-04:
-        - Test05: projects/RTD_CHILD_02/v0.0.5/docs/test-dir-04/test05.md
-        - Test06: projects/RTD_CHILD_02/v0.0.5/docs/test-dir-04/test06.md
+  - Home: index.md
+  - Projects:
+      - Overview: docs/projects/index.md
+      - !include "docs/projects/nav.yml"  # Auto-generated TOC
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.emoji
+  - pymdownx.snippets
+  - pymdownx.keys
+  - pymdownx.extra
+  - toc:
+      permalink: true
+

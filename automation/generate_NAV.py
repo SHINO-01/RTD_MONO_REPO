@@ -3,60 +3,78 @@ import yaml
 from pathlib import Path
 
 DOCS_ROOT = "docs/projects"
-MKDOCS_FILE = "mkdocs.yml"
+NAV_FILE = "mkdocs.yml"
 
 def generate_nav_entry(directory):
-    """Recursively generate navigation entries for a directory."""
+    """Recursively generate nav entries for a directory"""
     nav = []
-    items = sorted(os.listdir(directory))
+    
+    # Get all items in directory, sorted with indexes first
+    items = sorted(os.listdir(directory), key=lambda x: (not x.startswith("index.md"), x))
+    
     for item in items:
-        item_path = os.path.join(directory, item)
-        rel_path = str(Path(item_path).relative_to("docs"))
-        if os.path.isdir(item_path):
-            children = generate_nav_entry(item_path)
+        path = os.path.join(directory, item)
+        rel_path = str(Path(path).relative_to(DOCS_ROOT))
+        
+        if os.path.isdir(path):
+            # Directory: create nested entry
+            children = generate_nav_entry(path)
             if children:
-                nav.append({item.replace("_", " ").title(): children})
+                dir_name = item.replace("_", " ").title()
+                nav.append({dir_name: children})
         elif item.endswith(".md"):
-            # Use the file name (without extension) as the nav title
-            name = item[:-3].replace("_", " ").title()
-            nav.append({name: rel_path})
+            # Markdown file: create entry
+            if item == "index.md":
+                # Index file comes first
+                nav.insert(0, rel_path)
+            else:
+                # Other files
+                name = item[:-3].replace("_", " ").title()
+                nav.append({name: rel_path})
+    
     return nav
 
 def generate_nav():
     main_nav = [
-        {"Home": "index.md"}
+        {"Home": "index.md"},
+        {"Projects": "projects/index.md"}
     ]
+    
     projects_nav = []
-
+    
+    # Process each project
     for project in sorted(os.listdir(DOCS_ROOT)):
         project_path = os.path.join(DOCS_ROOT, project)
-        if os.path.isdir(project_path):
-            version_dirs = sorted(
+        if os.path.isdir(project_path) and project != "index.md":
+            versions = sorted(
                 [v for v in os.listdir(project_path) if os.path.isdir(os.path.join(project_path, v))],
-                key=lambda x: x,  # You might adjust sorting if version names follow semver
+                key=lambda x: tuple(map(int, x[1:].split("."))),
                 reverse=True
             )
+            
             version_entries = []
-            for version in version_dirs:
-                docs_path = os.path.join(project_path, version, "docs")
-                if os.path.exists(docs_path):
-                    nav_entry = generate_nav_entry(docs_path)
-                    if nav_entry:
-                        version_entries.append({version: nav_entry})
+            for version in versions:
+                version_path = os.path.join(project_path, version, "docs")
+                if os.path.exists(version_path):
+                    version_nav = generate_nav_entry(version_path)
+                    if version_nav:
+                        version_entries.append({version: version_nav})
+            
             if version_entries:
-                projects_nav.append({project.replace("_", " ").title(): version_entries})
-
-    full_nav = main_nav + [{"Projects": projects_nav}]
-
-    # Load the existing mkdocs.yml, update its nav, and write it back
-    with open(MKDOCS_FILE, "r", encoding="utf-8") as f:
+                project_name = project.replace("_", " ").title()
+                projects_nav.append({project_name: version_entries})
+    
+    # Combine all navigation entries
+    full_nav = main_nav + projects_nav
+    
+    # Update mkdocs.yml
+    with open(NAV_FILE, "r") as f:
         config = yaml.safe_load(f)
     
     config["nav"] = full_nav
     
-    with open(MKDOCS_FILE, "w", encoding="utf-8") as f:
+    with open(NAV_FILE, "w") as f:
         yaml.dump(config, f, default_flow_style=False, sort_keys=False, allow_unicode=True)
-    print("✅ Navigation structure updated in mkdocs.yml")
 
 if __name__ == "__main__":
     generate_nav()
