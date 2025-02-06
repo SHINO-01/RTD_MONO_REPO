@@ -15,7 +15,7 @@ build:
       - pip install -r requirements.txt
       - python automation/fetch_remote.py "$REPO_NAME"
       - python automation/cleanup_version.py
-      - python automation/generate_nav.py
+      - python automation/generate_NAV.py
 
 mkdocs:
   configuration: mkdocs.yml
