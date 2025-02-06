@@ -5,17 +5,17 @@ build:
   tools:
     python: "3.10"
 
-  # Environment variables (quoted value to avoid YAML parsing issues)
+  # Environment variables
   environment:
-    GH_PAT_TOKEN: "$GITHUB_PAT_TOKEN"  # Added quotes around the value
+    GH_PAT_TOKEN: $GITHUB_PAT_TOKEN  # Matches Read the Docs environment variable
 
   jobs:
     pre_build:
       - python -m pip install --upgrade pip
       - pip install -r requirements.txt
-      - python automation/fetch_remote.py  # Removed "$REPO_NAME" (not needed for Read the Docs builds)
+      - python automation/fetch_remote.py "$REPO_NAME"
       - python automation/cleanup_version.py
-      - python automation/generate_nav.py  # Fixed lowercase filename
+      - python automation/generate_nav.py
 
 mkdocs:
   configuration: mkdocs.yml

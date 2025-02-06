@@ -1,6 +1,7 @@
 site_name: "Unified Project Documentation"
 repo_url: "https://github.com/SHINO-01/RTD_MONO_REPO"
 edit_uri: "edit/main/docs/"
+
 theme:
   name: "material"
   features:
@@ -11,32 +12,18 @@ theme:
     - search.highlight
     - content.code.copy
     - content.action.edit
-    - content.action.view
 
 plugins:
   - search
   - mkdocs-gen-files
   - mkdocs-section-index
-  - mkdocs-literate-nav
-  - autorefs
-  - include-markdown
-  - glightbox
-
-nav:
-  - Home: index.md
-  - Projects:
-      - Overview: docs/projects/index.md
-      - !include "docs/projects/nav.yml"  # Auto-generated TOC
 
 markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.highlight
-  - pymdownx.emoji
-  - pymdownx.snippets
-  - pymdownx.keys
-  - pymdownx.extra
   - toc:
       permalink: true
 
+nav: []
