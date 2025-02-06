@@ -1,3 +1,9 @@
+name: Fetch Documentation Updates
+
+on:
+  repository_dispatch:
+    types: [docs_updated]
+
 jobs:
   fetch-docs:
     runs-on: ubuntu-latest
@@ -19,8 +25,27 @@ jobs:
           pip install requests
 
       - name: Fetch documentation from triggering repo
-        run: |
-          echo "Fetching documentation for repository: ${{ github.event.client_payload.repository }}"
-          python automation/fetch_remote.py "${{ github.event.client_payload.repository }}"
         env:
-          GH_PAT_TOKEN: ${{ secrets.GH_PAT_TOKEN }}
+          GH_PAT_TOKEN: ${{ secrets.GH_PAT_TOKEN }}  # Ensure the secret is correctly passed
+          REPO_NAME: ${{ github.event.client_payload.repository }}  # Repository name from webhook
+        run: |
+          echo "Fetching documentation from repo: $REPO_NAME"
+          python automation/fetch_remote.py "$REPO_NAME"
+
+      - name: Run cleanup_versions.py
+        run: python automation/cleanup_version.py
+
+      - name: Run generate_TOC.py
+        run: python automation/generate_TOC.py
+
+      - name: Commit and push updates
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "Automated Docs Update for $REPO_NAME"
+            git push
+          else
+            echo "No changes to commit."
+          fi
