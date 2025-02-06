@@ -39,15 +39,3 @@ markdown_extensions:
   - pymdownx.extra
   - toc:
       permalink: true
-
-nav:
-  - Rtd Child 01:
-    - v1.0.1: docs/projects/RTD_CHILD_01/v1.0.1/docs/index.md
-    - v1.0.0: docs/projects/RTD_CHILD_01/v1.0.0/docs/index.md
-    - v0.0.13: docs/projects/RTD_CHILD_01/v0.0.13/docs/index.md
-    - v0.0.12: docs/projects/RTD_CHILD_01/v0.0.12/docs/index.md
-    - v0.0.11: docs/projects/RTD_CHILD_01/v0.0.11/docs/index.md
-
-nav:
-  - Rtd Child 01:
-    - latest: docs/projects/RTD_CHILD_01/latest/docs/index.md
