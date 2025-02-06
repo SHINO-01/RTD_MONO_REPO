@@ -6,11 +6,10 @@ import sys
 # Constants
 PROJECTS_DIR = "docs/projects"
 GH_TOKEN = os.getenv("GH_PAT_TOKEN")
-MAX_VERSIONS = 5  # Max number of versions to keep
 
 def fetch_docs(repo_name):
     """
-    Fetches all documentation files from a given GitHub repository for multiple branches.
+    Recursively fetches all documentation files from a given GitHub repository.
     """
     if not GH_TOKEN:
         print("❌ Error: GitHub token is missing. Set GH_PAT_TOKEN as an environment variable.")
@@ -20,28 +19,19 @@ def fetch_docs(repo_name):
     repo_owner = "SHINO-01"
     repo_name = repo_name.split("/")[-1]  # Extract only "RTD_CHILD_01"
     
-    # Get all branches (to find version branches)
+    # Get default branch dynamically
     headers = {"Authorization": f"token {GH_TOKEN}", "Accept": "application/vnd.github.v3+json"}
-    branches_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/branches"
-    branches_res = requests.get(branches_url, headers=headers).json()
+    default_branch_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}"
+    default_branch_res = requests.get(default_branch_url, headers=headers).json()
+    default_branch = default_branch_res.get("default_branch", "main")  # Default to main
 
-    # Filter branches that start with "v" (indicating version branches like v1.0.0, v1.1.0, etc.)
-    version_branches = sorted(
-        [branch["name"] for branch in branches_res if branch["name"].startswith("v")],
-        reverse=True
-    )[:MAX_VERSIONS]  # Keep only the latest MAX_VERSIONS
+    print(f"📥 Fetching docs for {repo_name} from branch {default_branch}...")
 
-    if not version_branches:
-        print(f"❌ No version branches found for {repo_name}")
-        sys.exit(1)
-
-    print(f"📥 Fetching docs for {repo_name} from branches: {', '.join(version_branches)}...")
-
-    def fetch_and_save_files(path="docs", local_dir=None, branch=None):
+    def fetch_and_save_files(path="docs", local_dir=None):
         """
         Recursively fetches files from the GitHub API and saves them locally.
         """
-        api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{path}?ref={branch}"
+        api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{path}?ref={default_branch}"
         response = requests.get(api_url, headers=headers)
 
         if response.status_code != 200:
@@ -55,7 +45,7 @@ def fetch_docs(repo_name):
 
             if file["type"] == "dir":
                 # Recursively fetch subdirectory contents
-                fetch_and_save_files(file["path"], local_dir, branch)
+                fetch_and_save_files(file["path"], local_dir)
             elif file["type"] == "file" and file["name"].endswith(".md"):
                 # Download Markdown file
                 file_content = requests.get(file["download_url"], headers=headers).text
@@ -63,15 +53,15 @@ def fetch_docs(repo_name):
                 with open(local_file_path, "w", encoding="utf-8") as f:
                     f.write(file_content)
 
-    # Fetch docs for each versioned branch
-    for branch in version_branches:
-        target_dir = Path(PROJECTS_DIR) / repo_name / branch / "docs"
-        target_dir.mkdir(parents=True, exist_ok=True)
+    # Define where the documentation will be stored in the mother repo
+    latest_version = "latest"
+    target_dir = Path(PROJECTS_DIR) / repo_name / latest_version / "docs"
+    target_dir.mkdir(parents=True, exist_ok=True)
 
-        # Start fetching files recursively for this branch
-        fetch_and_save_files("docs", target_dir, branch)
+    # Start fetching files recursively
+    fetch_and_save_files("docs", target_dir)
 
-    print(f"✅ Successfully fetched docs for {repo_name} from branches: {', '.join(version_branches)}")
+    print(f"✅ Successfully fetched docs for {repo_name}")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
