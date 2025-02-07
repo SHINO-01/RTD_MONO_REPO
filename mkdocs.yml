@@ -1,6 +1,7 @@
 site_name: Unified Project Documentation
 repo_url: https://github.com/SHINO-01/RTD_MONO_REPO
 edit_uri: edit/main/docs/
+
 theme:
   name: material
 
