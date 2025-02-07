@@ -97,6 +97,28 @@ nav:
       - Test06: projects/RTD_CHILD_01/v1.0.4/docs/test-dir-04/test06.md
       - Test07: projects/RTD_CHILD_01/v1.0.4/docs/test-dir-04/test07.md
 - Rtd Child 02:
+  - v0.2.4:
+    - projects/RTD_CHILD_02/v0.2.4/docs/index.md
+    - Test-Dir-01:
+      - Test01: projects/RTD_CHILD_02/v0.2.4/docs/test-dir-01/test01.md
+    - Test-Dir-02:
+      - Test02: projects/RTD_CHILD_02/v0.2.4/docs/test-dir-02/test02.md
+    - Test-Dir-03:
+      - Test03: projects/RTD_CHILD_02/v0.2.4/docs/test-dir-03/test03.md
+    - Test-Dir-04:
+      - Test05: projects/RTD_CHILD_02/v0.2.4/docs/test-dir-04/test05.md
+      - Test06: projects/RTD_CHILD_02/v0.2.4/docs/test-dir-04/test06.md
+  - v0.2.3:
+    - projects/RTD_CHILD_02/v0.2.3/docs/index.md
+    - Test-Dir-01:
+      - Test01: projects/RTD_CHILD_02/v0.2.3/docs/test-dir-01/test01.md
+    - Test-Dir-02:
+      - Test02: projects/RTD_CHILD_02/v0.2.3/docs/test-dir-02/test02.md
+    - Test-Dir-03:
+      - Test03: projects/RTD_CHILD_02/v0.2.3/docs/test-dir-03/test03.md
+    - Test-Dir-04:
+      - Test05: projects/RTD_CHILD_02/v0.2.3/docs/test-dir-04/test05.md
+      - Test06: projects/RTD_CHILD_02/v0.2.3/docs/test-dir-04/test06.md
   - v0.2.2:
     - projects/RTD_CHILD_02/v0.2.2/docs/index.md
     - Test-Dir-01:
@@ -130,25 +152,3 @@ nav:
     - Test-Dir-04:
       - Test05: projects/RTD_CHILD_02/v0.2.0/docs/test-dir-04/test05.md
       - Test06: projects/RTD_CHILD_02/v0.2.0/docs/test-dir-04/test06.md
-  - v0.1.0:
-    - projects/RTD_CHILD_02/v0.1.0/docs/index.md
-    - Test-Dir-01:
-      - Test01: projects/RTD_CHILD_02/v0.1.0/docs/test-dir-01/test01.md
-    - Test-Dir-02:
-      - Test02: projects/RTD_CHILD_02/v0.1.0/docs/test-dir-02/test02.md
-    - Test-Dir-03:
-      - Test03: projects/RTD_CHILD_02/v0.1.0/docs/test-dir-03/test03.md
-    - Test-Dir-04:
-      - Test05: projects/RTD_CHILD_02/v0.1.0/docs/test-dir-04/test05.md
-      - Test06: projects/RTD_CHILD_02/v0.1.0/docs/test-dir-04/test06.md
-  - v0.0.18:
-    - projects/RTD_CHILD_02/v0.0.18/docs/index.md
-    - Test-Dir-01:
-      - Test01: projects/RTD_CHILD_02/v0.0.18/docs/test-dir-01/test01.md
-    - Test-Dir-02:
-      - Test02: projects/RTD_CHILD_02/v0.0.18/docs/test-dir-02/test02.md
-    - Test-Dir-03:
-      - Test03: projects/RTD_CHILD_02/v0.0.18/docs/test-dir-03/test03.md
-    - Test-Dir-04:
-      - Test05: projects/RTD_CHILD_02/v0.0.18/docs/test-dir-04/test05.md
-      - Test06: projects/RTD_CHILD_02/v0.0.18/docs/test-dir-04/test06.md
