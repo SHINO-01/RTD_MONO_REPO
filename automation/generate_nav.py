@@ -2,7 +2,7 @@ import os
 import yaml
 from pathlib import Path
 
-DOCS_ROOT = Path("docs/projects")
+DOCS_ROOT = Path("docs")
 NAV_FILE = "mkdocs.yml"
 
 def get_sorted_versions(versions):
@@ -13,17 +13,17 @@ def get_sorted_versions(versions):
         reverse=True
     )
 
-def generate_section_nav(start_path, base_path):
-    """Generate navigation entries recursively"""
+def generate_section_nav(start_path):
+    """Generate navigation entries recursively relative to docs root"""
     nav = []
     items = sorted(os.listdir(start_path), key=lambda x: (not x.startswith("index.md"), x))
     
     for item in items:
         item_path = start_path / item
-        rel_path = item_path.relative_to(base_path)
+        rel_path = item_path.relative_to(DOCS_ROOT)
         
         if item_path.is_dir():
-            children = generate_section_nav(item_path, base_path)
+            children = generate_section_nav(item_path)
             if children:
                 nav.append({item.replace("_", " ").title(): children})
         elif item.endswith(".md"):
@@ -35,14 +35,15 @@ def generate_section_nav(start_path, base_path):
     
     return nav
 
-def generate_nav():
-    """Main navigation generation logic"""
+def generate_project_nav():
+    """Generate navigation for all projects and versions"""
     nav_structure = [
         {"Home": "index.md"},
         {"Projects": "projects/index.md"}
     ]
     
-    for project in sorted(DOCS_ROOT.iterdir()):
+    projects_dir = DOCS_ROOT / "projects"
+    for project in sorted(projects_dir.iterdir()):
         if project.is_dir() and project.name != "index.md":
             versions = get_sorted_versions([v.name for v in project.iterdir() if v.is_dir()])
             project_nav = []
@@ -50,7 +51,7 @@ def generate_nav():
             for version in versions:
                 version_path = project / version / "docs"
                 if version_path.exists():
-                    version_nav = generate_section_nav(version_path, version_path.parent)
+                    version_nav = generate_section_nav(version_path)
                     if version_nav:
                         project_nav.append({version: version_nav})
             
@@ -59,7 +60,7 @@ def generate_nav():
                     project.name.replace("_", " ").title(): project_nav
                 })
     
-    update_mkdocs_config(nav_structure)
+    return nav_structure
 
 def update_mkdocs_config(nav_data):
     """Update mkdocs.yml with generated navigation"""
@@ -76,4 +77,5 @@ def update_mkdocs_config(nav_data):
                  Dumper=yaml.SafeDumper)
 
 if __name__ == "__main__":
-    generate_nav()
+    nav = generate_project_nav()
+    update_mkdocs_config(nav)
