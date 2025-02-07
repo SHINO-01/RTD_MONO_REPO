@@ -4,18 +4,10 @@ build:
   os: ubuntu-24.04
   tools:
     python: "3.10"
-
-  environment:
-    GH_PAT_TOKEN: "$GH_PAT_TOKEN"
-    REPO_NAME: "$REPO_NAME"
-
   jobs:
     pre_build:
       - python -m pip install --upgrade pip
       - pip install -r requirements.txt
-      - python automation/fetch_remote.py
-      - python automation/cleanup_version.py
-      - python automation/generate_nav.py
 
 mkdocs:
   configuration: mkdocs.yml
