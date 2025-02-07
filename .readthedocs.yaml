@@ -5,15 +5,15 @@ build:
   tools:
     python: "3.10"
 
-  # Environment variables
   environment:
-    GH_PAT_TOKEN: $GITHUB_PAT_TOKEN  # Matches Read the Docs environment variable
+    GH_PAT_TOKEN: "$GITHUB_PAT_TOKEN"
+    REPO_NAME: "$REPO_NAME"
 
   jobs:
     pre_build:
       - python -m pip install --upgrade pip
       - pip install -r requirements.txt
-      - python automation/fetch_remote.py "$REPO_NAME"
+      - python automation/fetch_remote.py
       - python automation/cleanup_version.py
       - python automation/generate_nav.py
 
