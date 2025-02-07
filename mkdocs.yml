@@ -6,7 +6,3 @@ theme:
 
 plugins:
 - search
-
-nav:
-- Home: index.md
-- Projects: projects/index.md
