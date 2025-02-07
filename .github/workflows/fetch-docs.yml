@@ -34,8 +34,8 @@ jobs:
       - name: Run cleanup_versions.py
         run: python automation/cleanup_version.py
 
-      - name: Generate Navigation Structure
-        run: python automation/generate_nav.py
+      # - name: Generate Navigation Structure
+      #   run: python automation/generate_nav.py
 
       - name: Commit and push updates
         run: |
