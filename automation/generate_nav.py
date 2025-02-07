@@ -4,6 +4,7 @@ from pathlib import Path
 
 DOCS_ROOT = Path("docs")
 NAV_FILE = "mkdocs.yml"
+PROJECTS_INDEX = DOCS_ROOT / "projects" / "index.md"
 
 def get_sorted_versions(versions):
     """Sort versions by semantic versioning"""
@@ -13,9 +14,9 @@ def get_sorted_versions(versions):
         reverse=True
     )
 
-def generate_section_nav(start_path):
-    """Generate navigation entries recursively relative to docs root"""
-    nav = []
+def generate_section_markdown(start_path, level=0):
+    """Generate Markdown content for a directory recursively"""
+    markdown = []
     items = sorted(os.listdir(start_path), key=lambda x: (not x.startswith("index.md"), x))
     
     for item in items:
@@ -23,59 +24,44 @@ def generate_section_nav(start_path):
         rel_path = item_path.relative_to(DOCS_ROOT)
         
         if item_path.is_dir():
-            children = generate_section_nav(item_path)
-            if children:
-                nav.append({item.replace("_", " ").title(): children})
+            # Add directory header
+            markdown.append(f"{'#' * (level + 2)} {item.replace('_', ' ').title()}\n")
+            # Recursively add subdirectories and files
+            markdown.extend(generate_section_markdown(item_path, level + 1))
         elif item.endswith(".md"):
-            nav_entry = str(rel_path).replace("\\", "/")
+            # Add file link
             if item == "index.md":
-                nav.insert(0, nav_entry)
+                markdown.append(f"- [{item_path.parent.name.replace('_', ' ').title()}]({rel_path})\n")
             else:
-                nav.append({item[:-3].replace("_", " ").title(): nav_entry})
+                markdown.append(f"- [{item[:-3].replace('_', ' ').title()}]({rel_path})\n")
     
-    return nav
+    return markdown
 
-def generate_project_nav():
-    """Generate navigation for all projects and versions"""
-    nav_structure = [
-        {"Home": "index.md"},
-        {"Projects": "projects/index.md"}
-    ]
+def generate_projects_markdown():
+    """Generate Markdown content for all projects and versions"""
+    markdown = ["# Projects\n\n"]
     
     projects_dir = DOCS_ROOT / "projects"
     for project in sorted(projects_dir.iterdir()):
         if project.is_dir() and project.name != "index.md":
-            versions = get_sorted_versions([v.name for v in project.iterdir() if v.is_dir()])
-            project_nav = []
+            markdown.append(f"## {project.name.replace('_', ' ').title()}\n")
             
+            versions = get_sorted_versions([v.name for v in project.iterdir() if v.is_dir()])
             for version in versions:
                 version_path = project / version / "docs"
                 if version_path.exists():
-                    version_nav = generate_section_nav(version_path)
-                    if version_nav:
-                        project_nav.append({version: version_nav})
-            
-            if project_nav:
-                nav_structure.append({
-                    project.name.replace("_", " ").title(): project_nav
-                })
+                    markdown.append(f"### {version}\n")
+                    markdown.extend(generate_section_markdown(version_path))
+                    markdown.append("\n")
     
-    return nav_structure
+    return "".join(markdown)
 
-def update_mkdocs_config(nav_data):
-    """Update mkdocs.yml with generated navigation"""
-    with open(NAV_FILE, "r") as f:
-        config = yaml.safe_load(f) or {}
-    
-    config["nav"] = nav_data
-    
-    with open(NAV_FILE, "w") as f:
-        yaml.dump(config, f, 
-                 default_flow_style=False, 
-                 sort_keys=False, 
-                 allow_unicode=True,
-                 Dumper=yaml.SafeDumper)
+def update_projects_index(markdown_content):
+    """Write the generated Markdown content to docs/projects/index.md"""
+    with open(PROJECTS_INDEX, "w", encoding="utf-8") as f:
+        f.write(markdown_content)
 
 if __name__ == "__main__":
-    nav = generate_project_nav()
-    update_mkdocs_config(nav)
+    markdown = generate_projects_markdown()
+    update_projects_index(markdown)
+    print(f"✅ Successfully updated {PROJECTS_INDEX}")
