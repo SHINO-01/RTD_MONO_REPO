@@ -6,7 +6,7 @@ build:
     python: "3.10"
 
   environment:
-    GH_PAT_TOKEN: "$GITHUB_PAT_TOKEN"
+    GITHUB_PAT_TOKEN: "$GITHUB_PAT_TOKEN"
     REPO_NAME: "$REPO_NAME"
 
   jobs:
