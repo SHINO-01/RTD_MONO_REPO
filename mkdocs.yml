@@ -99,6 +99,17 @@ nav:
       - Test06: docs/test-dir-04/test06.md
       - Test07: docs/test-dir-04/test07.md
 - Rtd Child 02:
+  - v0.0.16:
+    - docs/index.md
+    - Test-Dir-01:
+      - Test01: docs/test-dir-01/test01.md
+    - Test-Dir-02:
+      - Test02: docs/test-dir-02/test02.md
+    - Test-Dir-03:
+      - Test03: docs/test-dir-03/test03.md
+    - Test-Dir-04:
+      - Test05: docs/test-dir-04/test05.md
+      - Test06: docs/test-dir-04/test06.md
   - v0.0.15:
     - docs/index.md
     - Test-Dir-01:
