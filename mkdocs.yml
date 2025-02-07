@@ -6,13 +6,7 @@ theme:
 
 plugins:
 - search
-markdown_extensions:
-- admonition
-- pymdownx.details
-- pymdownx.superfences
-- pymdownx.highlight
-- toc:
-    permalink: true
+
 nav:
 - Home: index.md
 - Projects: projects/index.md
